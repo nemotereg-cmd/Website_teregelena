@@ -1,0 +1,165 @@
+@import "tailwindcss";
+
+/*
+ * ---------------------------------------------------------------------------
+ * Дизайн-токены
+ * ---------------------------------------------------------------------------
+ * Единственный источник правды по цветам, радиусам и теням. Tailwind v4
+ * сам превращает эти переменные в утилиты: --color-ink → text-ink / bg-ink,
+ * --radius-card → rounded-card, --shadow-card → shadow-card.
+ * Отдельный tailwind.config.js в v4 не нужен.
+ *
+ * Сайт светлый по замыслу, поэтому тёмная схема намеренно не поддерживается:
+ * тёмные участки (карточка-призыв, футер) заданы явными токенами night-*.
+ */
+@theme {
+  --font-sans: var(--font-manrope), ui-sans-serif, system-ui, -apple-system,
+    "Segoe UI", Roboto, Arial, sans-serif;
+
+  /* Текст */
+  --color-ink: #16123a;
+  --color-ink-soft: #3b3663;
+  --color-ink-muted: #6b6890;
+
+  /* Фирменные */
+  --color-brand: #1d4ed8;
+  --color-brand-hover: #1a43bb;
+  --color-violet: #8b5cf6;
+  --color-magenta: #d946ef;
+
+  /* Поверхности */
+  --color-canvas: #faf8ff;
+  --color-canvas-soft: #f3efff;
+  --color-surface: #ffffff;
+  --color-hairline: #ece7fa;
+
+  /* Тёмные акценты */
+  --color-night: #150b2b;
+  --color-night-soft: #241041;
+
+  /* Мессенджеры */
+  --color-telegram: #2aabee;
+  --color-whatsapp: #25d366;
+  --color-max: #6d3bf5;
+
+  /* Пастельные темы карточек курсов */
+  --color-rose-from: #fddced;
+  --color-rose-to: #f8b8d8;
+  --color-violet-from: #e6dffb;
+  --color-violet-to: #c9bcf6;
+  --color-amber-from: #ffe6d5;
+  --color-amber-to: #ffc7a8;
+  --color-azure-from: #dde6fd;
+  --color-azure-to: #bacefb;
+
+  --radius-card: 1.25rem;
+  --radius-panel: 2rem;
+
+  --shadow-card: 0 4px 24px -6px rgb(80 50 150 / 0.1);
+  --shadow-card-hover: 0 18px 40px -12px rgb(80 50 150 / 0.22);
+  --shadow-float: 0 10px 30px -8px rgb(80 50 150 / 0.18);
+
+  --ease-soft: cubic-bezier(0.22, 1, 0.36, 1);
+}
+
+@layer base {
+  html {
+    scroll-behavior: smooth;
+    -webkit-text-size-adjust: 100%;
+  }
+
+  body {
+    background-color: var(--color-canvas);
+    color: var(--color-ink);
+    font-family: var(--font-sans);
+    -webkit-font-smoothing: antialiased;
+    text-rendering: optimizeLegibility;
+  }
+
+  /* Видимый фокус только для клавиатуры — мышь его не показывает. */
+  :focus-visible {
+    outline: 2px solid var(--color-brand);
+    outline-offset: 3px;
+    border-radius: 4px;
+  }
+
+  ::selection {
+    background-color: var(--color-violet);
+    color: #fff;
+  }
+}
+
+/* Градиентный акцент в заголовках (в макете — «роста и свободы»). */
+@utility text-gradient {
+  background-image: linear-gradient(
+    100deg,
+    var(--color-violet) 0%,
+    var(--color-magenta) 100%
+  );
+  background-clip: text;
+  color: transparent;
+}
+
+/* Лавандовое свечение за первым экраном. */
+@utility hero-glow {
+  background-image:
+    radial-gradient(
+      60rem 40rem at 78% 12%,
+      rgb(217 70 239 / 0.16) 0%,
+      transparent 60%
+    ),
+    radial-gradient(
+      50rem 34rem at 12% 0%,
+      rgb(139 92 246 / 0.14) 0%,
+      transparent 62%
+    ),
+    linear-gradient(180deg, var(--color-canvas-soft) 0%, var(--color-canvas) 70%);
+}
+
+/* Лёгкое «парение» пилюль с названиями нейросетей на первом экране. */
+@keyframes float {
+  0%,
+  100% {
+    transform: translateY(0);
+  }
+  50% {
+    transform: translateY(-0.5rem);
+  }
+}
+
+/* Плавное появление блока при скролле. Управляется хуком useInView. */
+@utility reveal {
+  opacity: 0;
+  transform: translateY(1.25rem);
+  transition:
+    opacity 0.7s var(--ease-soft),
+    transform 0.7s var(--ease-soft);
+}
+
+@utility reveal-visible {
+  opacity: 1;
+  transform: none;
+}
+
+/*
+ * Пользователи, попросившие убрать анимации, получают статичную страницу.
+ * Важно: reveal-элементы обязаны остаться видимыми, иначе контент пропадёт.
+ */
+@media (prefers-reduced-motion: reduce) {
+  html {
+    scroll-behavior: auto;
+  }
+
+  *,
+  *::before,
+  *::after {
+    animation-duration: 0.01ms !important;
+    animation-iteration-count: 1 !important;
+    transition-duration: 0.01ms !important;
+  }
+
+  .reveal {
+    opacity: 1;
+    transform: none;
+  }
+}

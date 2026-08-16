@@ -1,0 +1,19 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 400 300" width="400" height="300" fill="none">
+  <defs>
+    <linearGradient id="cg0" x1="60" y1="40" x2="340" y2="260" gradientUnits="userSpaceOnUse">
+      <stop offset="0" stop-color="#F472B6"/><stop offset="1" stop-color="#DB2777"/>
+    </linearGradient>
+    <linearGradient id="cg0s" x1="0" y1="0" x2="0" y2="1">
+      <stop offset="0" stop-color="#fff" stop-opacity=".85"/><stop offset="1" stop-color="#fff" stop-opacity=".35"/>
+    </linearGradient>
+  </defs>
+  <circle cx="200" cy="150" r="112" fill="url(#cg0)" opacity=".22"/>
+  <rect x="96" y="78" width="208" height="132" rx="18" fill="url(#cg0)"/>
+  <rect x="116" y="100" width="120" height="12" rx="6" fill="url(#cg0s)"/>
+  <rect x="116" y="124" width="168" height="12" rx="6" fill="url(#cg0s)" opacity=".7"/>
+  <rect x="116" y="148" width="94" height="12" rx="6" fill="url(#cg0s)" opacity=".5"/>
+  <circle cx="268" cy="172" r="20" fill="#FFFFFF" opacity=".9"/>
+  <path d="M262 172h12M269 167l5 5-5 5" stroke="#DB2777" stroke-width="2.6" stroke-linecap="round" stroke-linejoin="round"/>
+  <circle cx="112" cy="236" r="26" fill="url(#cg0)" opacity=".5"/>
+  <circle cx="312" cy="72" r="16" fill="url(#cg0)" opacity=".6"/>
+  <text x="200" y="284" text-anchor="middle" font-family="system-ui, sans-serif" font-size="15" font-weight="700" fill="#DB2777" opacity=".55">Курс 01</text></svg>

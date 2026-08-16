@@ -1,0 +1,18 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 600 600" width="600" height="600" fill="none">
+  <defs>
+    <linearGradient id="hg" x1="80" y1="60" x2="480" y2="500" gradientUnits="userSpaceOnUse">
+      <stop offset="0" stop-color="#8B5CF6"/><stop offset="1" stop-color="#D946EF"/>
+    </linearGradient>
+    <linearGradient id="hd" x1="120" y1="360" x2="440" y2="470" gradientUnits="userSpaceOnUse">
+      <stop offset="0" stop-color="#E9E3FD"/><stop offset="1" stop-color="#CFC3F7"/>
+    </linearGradient>
+  </defs>
+  <circle cx="300" cy="270" r="205" fill="url(#hg)" opacity=".16"/>
+  <rect x="196" y="188" width="208" height="188" rx="70" fill="url(#hg)" opacity=".9"/>
+  <circle cx="300" cy="168" r="66" fill="url(#hg)"/>
+  <circle cx="300" cy="168" r="52" fill="#fff" opacity=".28"/>
+  <rect x="132" y="372" width="336" height="20" rx="10" fill="url(#hd)"/>
+  <path d="M168 372h264l-26-64H194z" fill="url(#hd)"/>
+  <rect x="228" y="318" width="144" height="8" rx="4" fill="#fff" opacity=".55"/>
+  <text x="300" y="470" text-anchor="middle" font-family="system-ui, sans-serif" font-size="20" font-weight="700" fill="#8B5CF6" opacity=".5">Фото автора</text>
+  <text x="300" y="498" text-anchor="middle" font-family="system-ui, sans-serif" font-size="14" fill="#8B5CF6" opacity=".38">public/images/hero/portrait.svg</text></svg>
