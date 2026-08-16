@@ -24,7 +24,7 @@ export const aboutImage = "/images/about/elena.svg";
 
 export const aboutStats: AboutStat[] = [
   { value: "5+ лет", label: "в digital и обучении" },
-  { value: "1 200+", label: "учеников на курсах" },
+  { value: " 100+", label: "учеников на курсах" },
   { value: "4", label: "авторских курса" },
   { value: "100+", label: "протестированных AI-инструментов" },
 ];
