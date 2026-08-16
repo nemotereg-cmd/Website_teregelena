@@ -2,6 +2,12 @@ import type { MetadataRoute } from "next";
 
 import { siteUrl } from "@/content/site";
 
+/**
+ * Явно помечаем маршрут статическим. Без этого `output: "export"` падает:
+ * Next не берётся сам решать, можно ли запечь роут в файл.
+ */
+export const dynamic = "force-static";
+
 /** Отдаётся по /robots.txt. */
 export default function robots(): MetadataRoute.Robots {
   return {

@@ -2,6 +2,9 @@ import type { MetadataRoute } from "next";
 
 import { siteUrl } from "@/content/site";
 
+/** См. комментарий в robots.ts — то же требование для статического экспорта. */
+export const dynamic = "force-static";
+
 /**
  * Отдаётся по /sitemap.xml. Сейчас страница одна; когда появятся
  * /courses/[slug], сюда добавится их перебор из content/courses.
