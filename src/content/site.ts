@@ -55,13 +55,15 @@ export const contacts: ContactChannel[] = [
   {
     id: "telegram",
     label: "Telegram",
-    href: "https://t.me/@Elena_Teregulova",
+    // В ссылке t.me имя пишется без «собачки» — она только для отображения.
+    href: "https://t.me/Elena_Teregulova",
     hint: "@Elena_Teregulova",
   },
   {
     id: "whatsapp",
     label: "WhatsApp",
-    href: "https://wa.me/9279448889",
+    // wa.me ждёт номер в международном формате: код страны, только цифры, без «+».
+    href: "https://wa.me/79279448889",
     hint: "+7 927 944-88-89",
   },
   {
