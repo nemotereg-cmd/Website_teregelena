@@ -55,14 +55,14 @@ export const contacts: ContactChannel[] = [
   {
     id: "telegram",
     label: "Telegram",
-    href: "https://t.me/username",
-    hint: "@username",
+    href: "https://t.me/@Elena_Teregulova",
+    hint: "@Elena_Teregulova",
   },
   {
     id: "whatsapp",
     label: "WhatsApp",
-    href: "https://wa.me/70000000000",
-    hint: "+7 000 000-00-00",
+    href: "https://wa.me/9279448889",
+    hint: "+7 927 944-88-89",
   },
   {
     id: "max",
