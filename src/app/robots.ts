@@ -1,6 +1,6 @@
 import type { MetadataRoute } from "next";
 
-import { siteUrl } from "@/content/site";
+import { siteUrl } from "@/lib/site-url";
 
 /**
  * Явно помечаем маршрут статическим. Без этого `output: "export"` падает:

@@ -2,7 +2,8 @@ import type { Metadata } from "next";
 
 import { faq } from "@/content/faq";
 import { courses } from "@/content/courses";
-import { author, contacts, site, siteUrl } from "@/content/site";
+import { author, contacts, site } from "@/content/site";
+import { siteUrl } from "@/lib/site-url";
 
 /**
  * Базовые метаданные приложения. Наследуются всеми страницами, каждая

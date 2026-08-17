@@ -1,6 +1,6 @@
 import type { MetadataRoute } from "next";
 
-import { siteUrl } from "@/content/site";
+import { siteUrl } from "@/lib/site-url";
 
 /** См. комментарий в robots.ts — то же требование для статического экспорта. */
 export const dynamic = "force-static";
