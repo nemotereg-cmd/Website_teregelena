@@ -37,14 +37,18 @@ export function CourseCard({ course, position, href, priority }: CourseCardProps
         {String(position).padStart(2, "0")}
       </span>
 
-      <div className="relative my-6 aspect-4/3 w-full">
+      {/*
+        Иллюстрации курсов — полнокадровые, со своим фоном, поэтому подаём их
+        как плитку со скруглением и object-cover, а не как объект без фона.
+      */}
+      <div className="relative my-5 aspect-4/3 w-full overflow-hidden rounded-2xl shadow-card">
         <Image
           src={course.image}
           alt=""
           fill
           priority={priority}
           sizes="(min-width: 1024px) 25vw, (min-width: 640px) 45vw, 90vw"
-          className="object-contain drop-shadow-[0_10px_20px_rgb(80_50_150/0.18)] transition-transform duration-500 ease-soft group-hover:scale-105"
+          className="object-cover transition-transform duration-500 ease-soft group-hover:scale-105"
         />
       </div>
 

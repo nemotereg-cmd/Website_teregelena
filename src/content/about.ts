@@ -20,7 +20,7 @@ export const aboutParagraphs = [
   "На курсах нет теории ради теории и технического жаргона. Каждый урок — это конкретный инструмент и задача, которую вы решаете прямо во время обучения на своём реальном примере.",
 ];
 
-export const aboutImage = "/images/about/elena.svg";
+export const aboutImage = "/images/about/elena.jpg";
 
 export const aboutStats: AboutStat[] = [
   { value: "5+ лет", label: "в digital и обучении" },

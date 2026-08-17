@@ -2,7 +2,11 @@ import type { Testimonial } from "@/types";
 
 export const testimonialsHeading = "Отзывы учеников";
 
-/** Аватары — SVG-заглушки в `public/images/testimonials/`. */
+/**
+ * Аватары — нейтральные векторные силуэты в `public/images/testimonials/`.
+ * Реальных фотографий учеников нет, и ставить вместо них стоковые лица
+ * нельзя: это выдавало бы чужих людей за авторов отзывов.
+ */
 export const testimonials: Testimonial[] = [
   {
     id: "anna",

@@ -1,5 +1,6 @@
 import Image from "next/image";
 
+import { author } from "@/content/site";
 import { Button } from "@/components/ui/Button";
 import { Container } from "@/components/ui/Container";
 import { FloatingBadge } from "@/components/ui/FloatingBadge";
@@ -57,16 +58,25 @@ export function Hero() {
             <div className="relative mx-auto aspect-square w-full max-w-lg">
               <div
                 aria-hidden="true"
-                className="absolute inset-[8%] rounded-full bg-linear-to-br from-violet/25 to-magenta/25 blur-3xl"
+                className="absolute -inset-4 rounded-full bg-linear-to-br from-violet/30 to-magenta/30 blur-3xl"
               />
-              <Image
-                src="/images/hero/portrait.svg"
-                alt="Автор курсов за работой с нейросетями"
-                fill
-                priority
-                sizes="(min-width: 1024px) 50vw, 90vw"
-                className="relative object-contain"
-              />
+              {/*
+                Фотография снята на чёрном фоне, поэтому она подана как тёмная
+                панель, а не как вырезанный силуэт: так чёрный читается
+                намеренным приёмом и рифмуется с блоком-призывом и подвалом.
+                Если появится PNG с настоящей прозрачностью, здесь достаточно
+                вернуть object-contain и убрать фон с рамкой.
+              */}
+              <div className="relative size-full overflow-hidden rounded-panel bg-night shadow-card-hover ring-1 ring-white/10">
+                <Image
+                  src="/images/hero/portrait.jpg"
+                  alt={`${author.name} — ${author.jobTitle}`}
+                  fill
+                  priority
+                  sizes="(min-width: 1024px) 50vw, 90vw"
+                  className="object-cover"
+                />
+              </div>
 
               {/* Пилюли позиционируются абсолютно только начиная с sm. */}
               <div className="pointer-events-none absolute inset-0 hidden sm:block">

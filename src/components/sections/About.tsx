@@ -29,13 +29,17 @@ export function About() {
                 aria-hidden="true"
                 className="absolute -inset-3 rounded-panel bg-linear-to-br from-violet/20 to-magenta/20 blur-2xl"
               />
-              <Image
-                src={aboutImage}
-                alt={`${author.name} — ${author.jobTitle}`}
-                fill
-                sizes="(min-width: 1024px) 40vw, 85vw"
-                className="relative rounded-panel object-cover shadow-card"
-              />
+              {/* Тот же приём, что и на первом экране: чёрный фон снимка
+                  оформлен как тёмная панель. */}
+              <div className="relative size-full overflow-hidden rounded-panel bg-night shadow-card ring-1 ring-white/10">
+                <Image
+                  src={aboutImage}
+                  alt={`${author.name} — ${author.jobTitle}`}
+                  fill
+                  sizes="(min-width: 1024px) 40vw, 85vw"
+                  className="object-cover"
+                />
+              </div>
             </div>
           </Reveal>
 
