@@ -37,7 +37,7 @@ export const aboutStats: AboutStat[] = [
   { value: "2 года", label: "обучаю работе с нейросетями" },
   { value: "2000+", label: "человек прошли обучение" },
   { value: "4", label: "авторских курса" },
-  { value: "3", label: "обучено корпоративных команды" },
+  { value: "3", label: "корпоративные команды обучены" },
 ];
 
 export const processHeading = "Как проходит обучение";
