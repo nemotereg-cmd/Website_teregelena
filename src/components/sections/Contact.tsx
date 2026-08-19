@@ -15,7 +15,7 @@ export function Contact() {
           subtitle="Напишите в удобный мессенджер — отвечу и помогу выбрать курс под вашу задачу."
         />
 
-        <ul className="mx-auto mt-10 grid max-w-4xl gap-4 sm:grid-cols-3">
+        <ul className="mx-auto mt-8 grid max-w-4xl gap-4 sm:grid-cols-3">
           {contacts.map((channel, index) => (
             <li key={channel.id}>
               <Reveal delay={index * 80}>

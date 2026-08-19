@@ -7,21 +7,35 @@ type SectionProps = {
   className?: string;
   /** Насколько плотно секция прижата к соседям по вертикали. */
   spacing?: "normal" | "tight";
+  /** Фоновая полоса. Соседние секции с одинаковым фоном сливаются в блок. */
+  background?: "canvas" | "soft";
 };
 
 /**
- * Обёртка секции: вертикальные отступы и якорь.
+ * Обёртка секции: вертикальные отступы, фон и якорь.
  *
  * `scroll-mt-*` компенсирует высоту закреплённой шапки — без него переход
  * по якорю прячет заголовок под хедером.
  */
-export function Section({ id, children, className, spacing = "normal" }: SectionProps) {
+export function Section({
+  id,
+  children,
+  className,
+  spacing = "normal",
+  background = "canvas",
+}: SectionProps) {
   return (
     <section
       id={id}
       className={cn(
         "scroll-mt-24 lg:scroll-mt-28",
-        spacing === "normal" ? "py-16 sm:py-20 lg:py-24" : "py-10 sm:py-12 lg:py-16",
+        /*
+         * Отступы соседних секций складываются, поэтому здесь половина
+         * желаемого просвета: py-14 сверху и снизу дают между двумя
+         * секциями 112px, а не 112 у каждой.
+         */
+        spacing === "normal" ? "py-10 sm:py-12 lg:py-14" : "py-6 sm:py-8 lg:py-10",
+        background === "soft" && "bg-canvas-soft",
         className,
       )}
     >

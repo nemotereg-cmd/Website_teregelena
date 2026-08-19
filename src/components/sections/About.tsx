@@ -20,7 +20,7 @@ import { SectionHeading } from "@/components/ui/SectionHeading";
  */
 export function About() {
   return (
-    <Section id="about">
+    <Section id="about" background="soft">
       <Container>
         <div className="grid items-center gap-10 lg:grid-cols-2 lg:gap-14">
           <Reveal>

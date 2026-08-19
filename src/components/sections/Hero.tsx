@@ -20,7 +20,7 @@ const badges = [
 
 export function Hero() {
   return (
-    <section id="top" className="hero-glow relative overflow-hidden pt-8 pb-16 lg:pt-12 lg:pb-24">
+    <section id="top" className="hero-glow relative overflow-hidden pt-6 pb-10 lg:pt-10 lg:pb-14">
       <Container>
         <div className="grid items-center gap-10 lg:grid-cols-2 lg:gap-8">
           <div className="max-w-xl">

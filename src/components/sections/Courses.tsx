@@ -15,7 +15,7 @@ export function Courses() {
           subtitle="Четыре программы под разные задачи — от первого знакомства с нейросетями до AI-агентов."
         />
 
-        <ul className="mt-10 grid gap-5 sm:grid-cols-2 lg:grid-cols-4">
+        <ul className="mt-8 grid gap-5 sm:grid-cols-2 lg:grid-cols-4">
           {courses.map((course, index) => (
             <li key={course.slug}>
               <Reveal delay={index * 80} className="h-full">

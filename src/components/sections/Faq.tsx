@@ -17,7 +17,7 @@ export function Faq() {
       <Container>
         <SectionHeading title={faqHeading} />
 
-        <div className="mx-auto mt-10 flex max-w-3xl flex-col gap-3">
+        <div className="mx-auto mt-8 flex max-w-3xl flex-col gap-3">
           {faq.map((item, index) => (
             <Reveal key={item.id} delay={index * 60}>
               <details className="group rounded-card bg-surface ring-1 ring-hairline shadow-card">

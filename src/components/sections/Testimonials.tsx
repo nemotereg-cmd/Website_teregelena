@@ -17,7 +17,7 @@ export function Testimonials() {
           Она вынесена в отдельный блок CtaBanner: разный смысл — разные блоки,
           и отзывы остаются честной сеткой из одних отзывов.
         */}
-        <ul className="mt-10 grid gap-5 sm:grid-cols-2 lg:grid-cols-3">
+        <ul className="mt-8 grid gap-5 sm:grid-cols-2 lg:grid-cols-3">
           {testimonials.map((testimonial, index) => (
             <li key={testimonial.id}>
               <Reveal delay={index * 80} className="h-full">

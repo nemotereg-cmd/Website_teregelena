@@ -8,14 +8,14 @@ import { SectionHeading } from "@/components/ui/SectionHeading";
 /** «Как проходит обучение» — снимает главное возражение «а что там внутри». */
 export function Process() {
   return (
-    <Section id="process" spacing="tight">
+    <Section id="process" spacing="tight" background="soft">
       <Container>
         <SectionHeading
           title={processHeading}
           subtitle="Четыре шага от первого сообщения до готовых сценариев под ваши задачи."
         />
 
-        <ol className="mt-10 grid gap-5 sm:grid-cols-2 lg:grid-cols-4">
+        <ol className="mt-8 grid gap-5 sm:grid-cols-2 lg:grid-cols-4">
           {processSteps.map((step, index) => (
             <li key={step.id}>
               <Reveal delay={index * 80} className="h-full">
