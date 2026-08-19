@@ -61,22 +61,19 @@ export function Hero() {
                 className="absolute -inset-4 rounded-full bg-linear-to-br from-violet/30 to-magenta/30 blur-3xl"
               />
               {/*
-                Фотография снята на чёрном фоне, поэтому она подана как тёмная
-                панель, а не как вырезанный силуэт: так чёрный читается
-                намеренным приёмом и рифмуется с блоком-призывом и подвалом.
-                Если появится PNG с настоящей прозрачностью, здесь достаточно
-                вернуть object-contain и убрать фон с рамкой.
+                PNG с прозрачным фоном: силуэт лежит прямо на свечении, без
+                подложки — как в макете. Тень отделяет фигуру от лавандового
+                фона, а маска растворяет низ: кадр обрезан по бедро, и без неё
+                платье обрывалось бы жёсткой горизонтальной линией.
               */}
-              <div className="relative size-full overflow-hidden rounded-panel bg-night shadow-card-hover ring-1 ring-white/10">
-                <Image
-                  src="/images/hero/portrait.jpg"
-                  alt={`${author.name} — ${author.jobTitle}`}
-                  fill
-                  priority
-                  sizes="(min-width: 1024px) 50vw, 90vw"
-                  className="object-cover"
-                />
-              </div>
+              <Image
+                src="/images/hero/portrait.png"
+                alt={`${author.name} — ${author.jobTitle}`}
+                fill
+                priority
+                sizes="(min-width: 1024px) 50vw, 90vw"
+                className="relative object-contain drop-shadow-[0_18px_35px_rgb(80_50_150/0.28)] mask-b-from-92% mask-b-to-100%"
+              />
 
               {/* Пилюли позиционируются абсолютно только начиная с sm. */}
               <div className="pointer-events-none absolute inset-0 hidden sm:block">

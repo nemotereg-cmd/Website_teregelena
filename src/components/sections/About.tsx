@@ -29,15 +29,18 @@ export function About() {
                 aria-hidden="true"
                 className="absolute -inset-3 rounded-panel bg-linear-to-br from-violet/20 to-magenta/20 blur-2xl"
               />
-              {/* Тот же приём, что и на первом экране: чёрный фон снимка
-                  оформлен как тёмная панель. */}
-              <div className="relative size-full overflow-hidden rounded-panel bg-night shadow-card ring-1 ring-white/10">
+              {/*
+                Силуэт вырезан, поэтому под ним лежит светлая панель с
+                градиентом: без опоры фигура на белом фоне секции «висела» бы
+                в пустоте. Само фото — object-contain, чтобы не обрезать голову.
+              */}
+              <div className="relative size-full overflow-hidden rounded-panel bg-linear-to-b from-canvas-soft to-[#F9E7F1] shadow-card ring-1 ring-white">
                 <Image
                   src={aboutImage}
                   alt={`${author.name} — ${author.jobTitle}`}
                   fill
                   sizes="(min-width: 1024px) 40vw, 85vw"
-                  className="object-cover"
+                  className="object-contain mask-b-from-94% mask-b-to-100%"
                 />
               </div>
             </div>
