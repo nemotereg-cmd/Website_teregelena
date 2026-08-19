@@ -32,7 +32,12 @@ export function About() {
                 градиентом: без опоры фигура на фоне секции «висела» бы
                 в пустоте. Панель и маска низа живут внутри Carousel.
               */}
-              <Carousel images={aboutImages} className="aspect-4/5" />
+              {/*
+                Пока в карусели вырезанный силуэт — режим "contain". Когда
+                придут обычные фотографии с фоном, здесь достаточно убрать
+                fit: по умолчанию кадр заполняет рамку целиком.
+              */}
+              <Carousel images={aboutImages} className="aspect-4/5" fit="contain" />
             </div>
           </Reveal>
 

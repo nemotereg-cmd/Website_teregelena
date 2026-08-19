@@ -13,6 +13,13 @@ type CarouselProps = {
   className?: string;
   /** Загружать первый кадр приоритетно (если карусель в первом экране). */
   priority?: boolean;
+  /**
+   * Как кадр ложится в рамку:
+   *   "cover"   — обычная фотография заполняет рамку целиком, лишнее обрезается;
+   *   "contain" — вырезанный силуэт вписывается внутрь, низ растворяется
+   *               в подложке, чтобы обрезанная по бедро фигура не обрывалась.
+   */
+  fit?: "cover" | "contain";
 };
 
 /**
@@ -29,7 +36,7 @@ type CarouselProps = {
  *   • невидимые кадры скрыты от скринридера и не ловят фокус;
  *   • анимацию отключает prefers-reduced-motion (правило в globals.css).
  */
-export function Carousel({ images, className, priority }: CarouselProps) {
+export function Carousel({ images, className, priority, fit = "cover" }: CarouselProps) {
   const [index, setIndex] = useState(0);
 
   const total = images.length;
@@ -68,7 +75,13 @@ export function Carousel({ images, className, priority }: CarouselProps) {
       tabIndex={hasControls ? 0 : -1}
       onKeyDown={handleKeyDown}
     >
-      <div className="relative size-full overflow-hidden rounded-panel bg-linear-to-b from-canvas-soft to-[#F9E7F1] shadow-card ring-1 ring-white">
+      <div
+        className={cn(
+          "relative size-full overflow-hidden rounded-panel shadow-card ring-1 ring-white",
+          // Подложка видна только у вписанных силуэтов; фото закрывает её целиком.
+          fit === "contain" && "bg-linear-to-b from-canvas-soft to-[#F9E7F1]",
+        )}
+      >
         <div
           className="flex size-full transition-transform duration-500 ease-soft"
           style={{ transform: `translateX(-${index * 100}%)` }}
@@ -86,7 +99,11 @@ export function Carousel({ images, className, priority }: CarouselProps) {
                 fill
                 priority={priority && i === 0}
                 sizes="(min-width: 1024px) 40vw, 85vw"
-                className="object-contain mask-b-from-94% mask-b-to-100%"
+                className={cn(
+                  fit === "cover"
+                    ? "object-cover"
+                    : "object-contain mask-b-from-94% mask-b-to-100%",
+                )}
               />
             </div>
           ))}
