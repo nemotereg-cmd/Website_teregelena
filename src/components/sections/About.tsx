@@ -27,17 +27,8 @@ export function About() {
                 aria-hidden="true"
                 className="absolute -inset-3 bottom-10 rounded-panel bg-linear-to-br from-violet/20 to-magenta/20 blur-2xl"
               />
-              {/*
-                Силуэты вырезаны, поэтому под ними лежит светлая панель с
-                градиентом: без опоры фигура на фоне секции «висела» бы
-                в пустоте. Панель и маска низа живут внутри Carousel.
-              */}
-              {/*
-                Пока в карусели вырезанный силуэт — режим "contain". Когда
-                придут обычные фотографии с фоном, здесь достаточно убрать
-                fit: по умолчанию кадр заполняет рамку целиком.
-              */}
-              <Carousel images={aboutImages} className="aspect-4/5" fit="contain" />
+              {/* Фотографии со своим фоном — заполняют рамку целиком. */}
+              <Carousel images={aboutImages} className="aspect-4/5" />
             </div>
           </Reveal>
 
