@@ -69,3 +69,8 @@ export type AboutStat = {
   value: string;
   label: string;
 };
+
+export type GalleryImage = {
+  src: string;
+  alt: string;
+};
