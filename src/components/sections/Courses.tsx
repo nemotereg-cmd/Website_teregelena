@@ -12,7 +12,7 @@ export function Courses() {
       <Container>
         <SectionHeading
           title={coursesHeading}
-          subtitle="Четыре программы под разные задачи — от первого знакомства с нейросетями до AI-агентов."
+          subtitle="Четыре программы под разные задачи — от первого знакомства с нейросетями до обучения целой команды."
         />
 
         <ul className="mt-8 grid gap-5 sm:grid-cols-2 lg:grid-cols-4">
@@ -23,7 +23,7 @@ export function Courses() {
                   Пока отдельных страниц курсов нет, карточка ведёт в контакты.
                   Когда появится /courses/[slug] — меняется только этот href.
                 */}
-                <CourseCard course={course} position={index + 1} href="#contacts" />
+                <CourseCard course={course} href="#contacts" />
               </Reveal>
             </li>
           ))}

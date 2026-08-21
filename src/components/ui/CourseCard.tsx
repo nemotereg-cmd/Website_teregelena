@@ -8,15 +8,13 @@ import { cn } from "@/lib/cn";
 
 type CourseCardProps = {
   course: Course;
-  /** Порядковый номер начиная с 1 — рисуется как 01, 02, … */
-  position: number;
   /** Куда ведёт карточка. Сейчас это якорь контактов. */
   href: string;
   /** Приоритетная загрузка для карточек, попадающих в первый экран. */
   priority?: boolean;
 };
 
-export function CourseCard({ course, position, href, priority }: CourseCardProps) {
+export function CourseCard({ course, href, priority }: CourseCardProps) {
   const theme = courseThemes[course.theme];
 
   return (
@@ -28,20 +26,11 @@ export function CourseCard({ course, position, href, priority }: CourseCardProps
         theme.surface,
       )}
     >
-      <span
-        className={cn(
-          "inline-flex w-fit items-center rounded-lg px-2.5 py-1 text-xs font-bold text-white",
-          theme.badge,
-        )}
-      >
-        {String(position).padStart(2, "0")}
-      </span>
-
       {/*
         Иллюстрации курсов — полнокадровые, со своим фоном, поэтому подаём их
         как плитку со скруглением и object-cover, а не как объект без фона.
       */}
-      <div className="relative my-5 aspect-4/3 w-full overflow-hidden rounded-2xl shadow-card">
+      <div className="relative mb-5 aspect-4/3 w-full overflow-hidden rounded-2xl shadow-card">
         <Image
           src={course.image}
           alt=""
