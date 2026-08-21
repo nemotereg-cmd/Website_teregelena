@@ -8,8 +8,8 @@ export const coursesHeading = "Курсы";
  * Картинки лежат в `public/images/courses/`. Чтобы заменить — положите файл
  * рядом и поправьте путь в поле `image`.
  *
- * Подписи в `tags` — ориентировочные: количество уроков нигде не сверялось,
- * перед публикацией их стоит подтвердить или убрать.
+ * `tags` — короткие метки аудитории под карточкой. Количество уроков из них
+ * убрано: цифры нигде не сверялись.
  */
 export const courses: Course[] = [
   {
@@ -19,7 +19,7 @@ export const courses: Course[] = [
       "Освойте нейросети с нуля и начните применять их уже сегодня.",
     image: "/images/courses/course-01.jpg",
     theme: "rose",
-    tags: ["Для начинающих", "8 уроков"],
+    tags: ["Для начинающих"],
   },
   {
     slug: "chatgpt-dlya-biznesa",
@@ -28,7 +28,7 @@ export const courses: Course[] = [
       "Используйте ChatGPT для автоматизации задач и роста вашего бизнеса.",
     image: "/images/courses/course-02.jpg",
     theme: "violet",
-    tags: ["Для бизнеса", "10 уроков"],
+    tags: ["Для бизнеса"],
   },
   {
     slug: "sozdanie-kontenta",
@@ -37,7 +37,7 @@ export const courses: Course[] = [
       "Генерируйте тексты, изображения и видео для любых задач и платформ.",
     image: "/images/courses/course-03.jpg",
     theme: "amber",
-    tags: ["Для авторов", "12 уроков"],
+    tags: ["Для авторов"],
   },
   {
     slug: "dlya-kompaniy",
@@ -47,6 +47,6 @@ export const courses: Course[] = [
     // Картинка временно осталась от прежнего курса — ждёт замены.
     image: "/images/courses/course-04.jpg",
     theme: "azure",
-    tags: ["Для команд", "Формат под задачу"],
+    tags: ["Для команд"],
   },
 ];
