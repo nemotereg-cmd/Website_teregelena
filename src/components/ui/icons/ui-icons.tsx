@@ -104,3 +104,11 @@ export function PlusIcon({ className }: IconProps) {
     </svg>
   );
 }
+
+export function PlayIcon({ className }: IconProps) {
+  return (
+    <svg viewBox="0 0 24 24" fill="currentColor" className={className} aria-hidden="true">
+      <path d="M8.5 5.4c0-.9 1-1.5 1.8-1L18 11.1c.7.4.7 1.4 0 1.8l-7.7 6.7c-.8.5-1.8-.1-1.8-1V5.4Z" />
+    </svg>
+  );
+}

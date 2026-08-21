@@ -1,40 +1,50 @@
-import type { Testimonial } from "@/types";
+import type { VideoTestimonial } from "@/types";
 
 export const testimonialsHeading = "Отзывы учеников";
 
 /**
- * Аватары — нейтральные векторные силуэты в `public/images/testimonials/`.
- * Реальных фотографий учеников нет, и ставить вместо них стоковые лица
- * нельзя: это выдавало бы чужих людей за авторов отзывов.
+ * ============================================================================
+ * НУЖНО ДОПОЛНИТЬ: имена авторов отзывов
+ * ============================================================================
+ * Поля `name` пустые: на самих записях имена не звучат и не подписаны, а
+ * придумывать их нельзя — это выдавало бы вымышленных людей за реальных
+ * учеников. Заполните `name` и `role`, и подписи появятся на карточках сами.
+ *
+ * Роль во втором отзыве взята с титра на самом видео.
+ *
+ * Файлы лежат в `public/videos/`, обложки — в `public/images/testimonials/`.
+ * Обложка нарезана кадром из того же ролика: до нажатия play видео вообще
+ * не скачивается, поэтому вес страницы от количества отзывов не растёт.
  */
-export const testimonials: Testimonial[] = [
+export const videoTestimonials: VideoTestimonial[] = [
   {
-    id: "anna",
-    quote:
-      "Курс дал мне системное понимание нейросетей. Теперь экономлю кучу времени на рутинных задачах!",
-    author: "Анна С.",
-    role: "Маркетолог",
-    avatar: "/images/testimonials/anna.svg",
+    id: "review-1",
+    src: "/videos/review-1.mp4",
+    poster: "/images/testimonials/review-1.jpg",
+    duration: "0:21",
   },
   {
-    id: "igor",
-    quote:
-      "Очень практично и понятно. Каждый урок — готовое решение, которое сразу применяешь в работе.",
-    author: "Игорь П.",
-    role: "Предприниматель",
-    avatar: "/images/testimonials/igor.svg",
+    id: "review-2",
+    src: "/videos/review-2.mp4",
+    poster: "/images/testimonials/review-2.jpg",
+    role: "Предприниматель, прокат мототехники в Уфе",
+    duration: "0:39",
   },
   {
-    id: "maria",
-    quote:
-      "Елена объясняет сложные вещи простым языком. Лучшее обучение по нейросетям, которое я проходила!",
-    author: "Мария К.",
-    role: "SMM-специалист",
-    avatar: "/images/testimonials/maria.svg",
+    id: "review-3",
+    src: "/videos/review-3.mp4",
+    poster: "/images/testimonials/review-3.jpg",
+    duration: "1:00",
+  },
+  {
+    id: "review-4",
+    src: "/videos/review-4.mp4",
+    poster: "/images/testimonials/review-4.jpg",
+    duration: "0:25",
   },
 ];
 
-/** Тёмная карточка-призыв. В макете стояла четвёртой в сетке отзывов. */
+/** Тёмная плашка-призыв. В макете была четвёртой карточкой в сетке отзывов. */
 export const testimonialsCta = {
   title: "Нейросети — это не будущее. Это ваш шаг вперёд уже сейчас.",
   description: "Начните обучение и измените свой подход к работе и жизни.",

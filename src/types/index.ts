@@ -74,3 +74,17 @@ export type GalleryImage = {
   src: string;
   alt: string;
 };
+
+export type VideoTestimonial = {
+  id: string;
+  /** Путь к видеофайлу внутри `public/`. */
+  src: string;
+  /** Обложка: она одна и видна, пока человек не нажал play. */
+  poster: string;
+  /** Имя автора отзыва. Если пусто — подпись на карточке не выводится. */
+  name?: string;
+  /** Кем работает: без этого отзыв заметно теряет в убедительности. */
+  role?: string;
+  /** Длительность в формате «0:39» — показывается уголком на обложке. */
+  duration?: string;
+};
