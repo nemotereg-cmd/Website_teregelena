@@ -1,13 +1,13 @@
 "use client";
 
-import { useCallback, useEffect, useRef, useState } from "react";
+import { useCallback, useRef, useState } from "react";
 import Image from "next/image";
 
 import type { VideoTestimonial } from "@/types";
-import { useLockBodyScroll } from "@/hooks/useLockBodyScroll";
 import { cn } from "@/lib/cn";
 
-import { CloseIcon, PlayIcon } from "./icons/ui-icons";
+import { PlayIcon } from "./icons/ui-icons";
+import { VideoLightbox } from "./VideoLightbox";
 
 type VideoTestimonialsProps = {
   items: VideoTestimonial[];
@@ -23,11 +23,7 @@ type VideoTestimonialsProps = {
  */
 export function VideoTestimonials({ items }: VideoTestimonialsProps) {
   const [openIndex, setOpenIndex] = useState<number | null>(null);
-  const closeButtonRef = useRef<HTMLButtonElement>(null);
   const lastTriggerRef = useRef<HTMLButtonElement | null>(null);
-
-  const isOpen = openIndex !== null;
-  useLockBodyScroll(isOpen);
 
   const close = useCallback(() => {
     setOpenIndex(null);
@@ -36,19 +32,10 @@ export function VideoTestimonials({ items }: VideoTestimonialsProps) {
     lastTriggerRef.current?.focus();
   }, []);
 
-  useEffect(() => {
-    if (!isOpen) return;
-
-    const onKeyDown = (event: KeyboardEvent) => {
-      if (event.key === "Escape") close();
-    };
-
-    document.addEventListener("keydown", onKeyDown);
-    closeButtonRef.current?.focus();
-    return () => document.removeEventListener("keydown", onKeyDown);
-  }, [isOpen, close]);
-
   const active = openIndex === null ? null : items[openIndex];
+  const caption = active
+    ? [active.name, active.role].filter(Boolean).join(" · ")
+    : undefined;
 
   return (
     <>
@@ -120,54 +107,12 @@ export function VideoTestimonials({ items }: VideoTestimonialsProps) {
         ))}
       </ul>
 
-      {active ? (
-        <div
-          role="dialog"
-          aria-modal="true"
-          aria-label="Видеоотзыв"
-          className="fixed inset-0 z-50 flex items-center justify-center bg-night/85 p-4 backdrop-blur-sm"
-          onClick={close}
-        >
-          <div
-            className="relative flex max-h-full flex-col items-center"
-            // Клик по самому ролику не должен закрывать окно.
-            onClick={(event) => event.stopPropagation()}
-          >
-            <button
-              ref={closeButtonRef}
-              type="button"
-              onClick={close}
-              aria-label="Закрыть видео"
-              className="mb-3 inline-flex size-11 items-center justify-center self-end rounded-full bg-white/95 text-ink shadow-card transition-transform hover:scale-105"
-            >
-              <CloseIcon className="size-5" />
-            </button>
-
-            {/*
-              key заставляет React пересоздать элемент при смене отзыва:
-              иначе браузер оставил бы в плеере предыдущий ролик.
-              controls обязателен — без них ролик со звуком не остановить.
-            */}
-            <video
-              key={active.id}
-              src={active.src}
-              poster={active.poster}
-              controls
-              autoPlay
-              playsInline
-              className="max-h-[80vh] w-auto max-w-full rounded-panel shadow-card-hover"
-            />
-
-            {active.name || active.role ? (
-              <p className="mt-3 text-center text-sm text-white/80">
-                {active.name}
-                {active.name && active.role ? " · " : ""}
-                {active.role}
-              </p>
-            ) : null}
-          </div>
-        </div>
-      ) : null}
+      <VideoLightbox
+        src={active?.src ?? null}
+        poster={active?.poster}
+        caption={caption || undefined}
+        onClose={close}
+      />
     </>
   );
 }

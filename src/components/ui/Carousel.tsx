@@ -1,15 +1,16 @@
 "use client";
 
-import { useCallback, useState } from "react";
+import { useCallback, useRef, useState } from "react";
 import Image from "next/image";
 
-import type { GalleryImage } from "@/types";
+import type { GallerySlide } from "@/types";
 import { cn } from "@/lib/cn";
 
-import { ArrowRightIcon } from "./icons/ui-icons";
+import { ArrowRightIcon, PlayIcon } from "./icons/ui-icons";
+import { VideoLightbox } from "./VideoLightbox";
 
 type CarouselProps = {
-  images: GalleryImage[];
+  images: GallerySlide[];
   className?: string;
   /** Загружать первый кадр приоритетно (если карусель в первом экране). */
   priority?: boolean;
@@ -38,6 +39,13 @@ type CarouselProps = {
  */
 export function Carousel({ images, className, priority, fit = "cover" }: CarouselProps) {
   const [index, setIndex] = useState(0);
+  const [openVideo, setOpenVideo] = useState<GallerySlide | null>(null);
+  const lastTriggerRef = useRef<HTMLButtonElement | null>(null);
+
+  const closeVideo = useCallback(() => {
+    setOpenVideo(null);
+    lastTriggerRef.current?.focus();
+  }, []);
 
   const total = images.length;
   const hasControls = total > 1;
@@ -71,7 +79,7 @@ export function Carousel({ images, className, priority, fit = "cover" }: Carouse
       className={cn("relative", className)}
       role="group"
       aria-roledescription="карусель"
-      aria-label="Фотографии автора"
+      aria-label="Фотографии и видео автора"
       tabIndex={hasControls ? 0 : -1}
       onKeyDown={handleKeyDown}
     >
@@ -105,6 +113,40 @@ export function Carousel({ images, className, priority, fit = "cover" }: Carouse
                     : "object-contain mask-b-from-94% mask-b-to-100%",
                 )}
               />
+
+              {/*
+                Слайд с роликом. Видео вертикальное, а рамка карусели шире,
+                поэтому внутри неё кадр обрезался бы почти на треть — вместо
+                этого показываем обложку, а ролик открываем поверх страницы
+                в его собственных пропорциях.
+              */}
+              {image.video ? (
+                <button
+                  type="button"
+                  onClick={(event) => {
+                    lastTriggerRef.current = event.currentTarget;
+                    setOpenVideo(image);
+                  }}
+                  aria-label={`Смотреть видео: ${image.alt}`}
+                  className="group/play absolute inset-0 flex items-center justify-center"
+                >
+                  <span
+                    aria-hidden="true"
+                    className="absolute inset-0 bg-night/25 transition-colors duration-300 group-hover/play:bg-night/35"
+                  />
+                  <span
+                    aria-hidden="true"
+                    className="relative inline-flex size-14 items-center justify-center rounded-full bg-white/95 text-brand shadow-float transition-transform duration-300 ease-soft group-hover/play:scale-110"
+                  >
+                    <PlayIcon className="size-6 translate-x-0.5" />
+                  </span>
+                  {image.video.duration ? (
+                    <span className="absolute top-3 right-3 rounded-full bg-night/70 px-2 py-0.5 text-[11px] font-semibold text-white backdrop-blur-sm">
+                      {image.video.duration}
+                    </span>
+                  ) : null}
+                </button>
+              ) : null}
             </div>
           ))}
         </div>
@@ -121,7 +163,7 @@ export function Carousel({ images, className, priority, fit = "cover" }: Carouse
                 key={image.src}
                 type="button"
                 onClick={() => setIndex(i)}
-                aria-label={`Фотография ${i + 1} из ${total}`}
+                aria-label={`Слайд ${i + 1} из ${total}`}
                 aria-current={i === index}
                 className={cn(
                   "h-2 rounded-full transition-all duration-300 ease-soft",
@@ -133,10 +175,16 @@ export function Carousel({ images, className, priority, fit = "cover" }: Carouse
 
           {/* Смену кадра озвучиваем отдельно: сами картинки скрыты от озвучки. */}
           <p aria-live="polite" className="sr-only">
-            Фотография {index + 1} из {total}
+            Слайд {index + 1} из {total}
           </p>
         </>
       ) : null}
+
+      <VideoLightbox
+        src={openVideo?.video?.src ?? null}
+        poster={openVideo?.src}
+        onClose={closeVideo}
+      />
     </div>
   );
 }
@@ -154,7 +202,7 @@ function CarouselButton({
     <button
       type="button"
       onClick={onClick}
-      aria-label={isPrev ? "Предыдущая фотография" : "Следующая фотография"}
+      aria-label={isPrev ? "Предыдущий слайд" : "Следующий слайд"}
       className={cn(
         "absolute top-1/2 z-10 inline-flex size-10 -translate-y-1/2 items-center justify-center",
         "rounded-full bg-surface/90 text-ink shadow-card ring-1 ring-hairline backdrop-blur-sm",

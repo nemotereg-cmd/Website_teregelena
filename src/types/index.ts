@@ -70,9 +70,19 @@ export type AboutStat = {
   label: string;
 };
 
-export type GalleryImage = {
+/**
+ * Слайд карусели. Обычно это фотография; если заполнено поле `video`,
+ * то `src` работает обложкой, а по клику открывается ролик.
+ */
+export type GallerySlide = {
   src: string;
   alt: string;
+  video?: {
+    /** Путь к видеофайлу внутри `public/`. */
+    src: string;
+    /** Длительность в формате «0:07» — подписывается уголком обложки. */
+    duration?: string;
+  };
 };
 
 export type VideoTestimonial = {
