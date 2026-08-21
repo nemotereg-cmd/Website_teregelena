@@ -18,13 +18,6 @@ export const benefits: Benefit[] = [
       "Генерируйте изображения, видео, презентации и контент для соцсетей.",
   },
   {
-    id: "automation",
-    icon: "automation",
-    title: "Автоматизация",
-    description:
-      "Настраивайте AI-агентов и автоматизируйте процессы для бизнеса и жизни.",
-  },
-  {
     id: "analytics",
     icon: "analytics",
     title: "Аналитика и идеи",

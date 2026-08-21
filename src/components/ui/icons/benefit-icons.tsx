@@ -66,31 +66,6 @@ function ContentIcon({ className }: IconProps) {
   );
 }
 
-function AutomationIcon({ className }: IconProps) {
-  return (
-    <svg viewBox="0 0 48 48" fill="none" className={className} aria-hidden="true">
-      <defs>
-        <linearGradient id="bi-automation" x1="8" y1="8" x2="40" y2="40">
-          <stop offset="0%" stopColor="#FB7185" />
-          <stop offset="100%" stopColor="#E11D6F" />
-        </linearGradient>
-      </defs>
-      <path
-        d="M19 6.5h6l.8 4.3 3.3 1.9 4-1.7 3 5.2-3.2 2.9v3.8l3.2 2.9-3 5.2-4-1.7-3.3 1.9-.8 4.3h-6l-.8-4.3-3.3-1.9-4 1.7-3-5.2 3.2-2.9v-3.8L8.9 16.2l3-5.2 4 1.7 3.3-1.9.8-4.3Z"
-        fill="url(#bi-automation)"
-        opacity="0.2"
-      />
-      <circle cx="22" cy="21" r="5.6" stroke="url(#bi-automation)" strokeWidth="2.6" />
-      <path
-        d="M33 31.5a5 5 0 1 1 5 5v3.5"
-        stroke="url(#bi-automation)"
-        strokeWidth="2.6"
-        strokeLinecap="round"
-      />
-    </svg>
-  );
-}
-
 function AnalyticsIcon({ className }: IconProps) {
   return (
     <svg viewBox="0 0 48 48" fill="none" className={className} aria-hidden="true">
@@ -118,7 +93,6 @@ function AnalyticsIcon({ className }: IconProps) {
 export const benefitIcons: Record<BenefitIconId, (props: IconProps) => React.ReactElement> = {
   text: TextIcon,
   content: ContentIcon,
-  automation: AutomationIcon,
   analytics: AnalyticsIcon,
 };
 
@@ -126,6 +100,5 @@ export const benefitIcons: Record<BenefitIconId, (props: IconProps) => React.Rea
 export const benefitIconBackgrounds: Record<BenefitIconId, string> = {
   text: "bg-[#FDECF5]",
   content: "bg-[#F0EAFE]",
-  automation: "bg-[#FDE9EE]",
   analytics: "bg-[#E8EBFD]",
 };

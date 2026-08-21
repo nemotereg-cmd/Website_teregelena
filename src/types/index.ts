@@ -21,7 +21,7 @@ export type ContactChannel = {
 };
 
 /** Ключ иконки для карточки выгоды. См. `src/components/ui/icons/benefit-icons.tsx`. */
-export type BenefitIconId = "text" | "content" | "automation" | "analytics";
+export type BenefitIconId = "text" | "content" | "analytics";
 
 export type Benefit = {
   id: string;
