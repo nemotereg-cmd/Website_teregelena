@@ -41,14 +41,34 @@ export function CourseCard({ course, href, priority }: CourseCardProps) {
         />
       </div>
 
-      <div className="mt-auto flex items-end gap-4">
-        <div className="min-w-0 flex-1">
-          <h3 className="text-xl font-bold text-balance text-ink">{course.title}</h3>
-          <p className="mt-2 text-sm leading-relaxed text-pretty text-ink-soft/85">
-            {course.description}
-          </p>
+      {/*
+        Текст идёт сразу под картинкой, а не прижат к низу карточки: иначе
+        заголовки начинались бы на разной высоте — у каждой карточки своя
+        длина описания. Метки уходят вниз отдельно, через mt-auto.
+      */}
+      <div className="flex min-w-0 flex-1 flex-col">
+        {/*
+          Резерв высоты под самый длинный заголовок — иначе описания соседних
+          карточек разъезжаются по вертикали. Значения замерены в браузере:
+            до sm  — резерва нет: карточки идут одна под другой, выравнивать
+                     нечего, а пустая строка была бы заметна;
+            sm     — две строки (56px);
+            lg     — три (84px): в сетке из четырёх колонок карточка самая
+                     узкая, и «Создание контента с нейросетями» переносится
+                     на три строки;
+            xl     — снова две: колонка шире, заголовок укладывается в две.
+        */}
+        <h3 className="text-xl font-bold text-balance text-ink sm:min-h-14 lg:min-h-21 xl:min-h-14">
+          {course.title}
+        </h3>
+
+        <p className="mt-2 text-sm leading-relaxed text-pretty text-ink-soft/85">
+          {course.description}
+        </p>
+
+        <div className="mt-auto flex items-end justify-between gap-4 pt-4">
           {course.tags?.length ? (
-            <ul className="mt-3 flex flex-wrap gap-1.5">
+            <ul className="flex flex-wrap gap-1.5">
               {course.tags.map((tag) => (
                 <li
                   key={tag}
@@ -58,19 +78,21 @@ export function CourseCard({ course, href, priority }: CourseCardProps) {
                 </li>
               ))}
             </ul>
-          ) : null}
-        </div>
+          ) : (
+            <span />
+          )}
 
-        {/*
-          Кружок со стрелкой — визуальный акцент. Кликабельна вся карточка
-          через растянутую ссылку ниже, поэтому иконка скрыта от скринридера.
-        */}
-        <span
-          aria-hidden="true"
-          className="mb-1 inline-flex size-10 shrink-0 items-center justify-center rounded-full bg-white/80 text-ink transition-[background-color,transform] duration-300 ease-soft group-hover:translate-x-0.5 group-hover:bg-white"
-        >
-          <ArrowRightIcon className="size-5" />
-        </span>
+          {/*
+            Кружок со стрелкой — визуальный акцент. Кликабельна вся карточка
+            через растянутую ссылку ниже, поэтому иконка скрыта от скринридера.
+          */}
+          <span
+            aria-hidden="true"
+            className="inline-flex size-10 shrink-0 items-center justify-center rounded-full bg-white/80 text-ink transition-[background-color,transform] duration-300 ease-soft group-hover:translate-x-0.5 group-hover:bg-white"
+          >
+            <ArrowRightIcon className="size-5" />
+          </span>
+        </div>
       </div>
 
       {/* Растянутая ссылка: карточка кликабельна целиком, но в DOM это одна ссылка. */}
