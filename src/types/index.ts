@@ -60,8 +60,8 @@ export type ProcessStep = {
   id: string;
   /** Короткое слово-этап: ЗНАКОМСТВО, ПРАКТИКА и так далее. */
   label: string;
-  title: string;
-  description: string;
+  /** Весь шаг одним текстом — отдельного заголовка в плашке нет. */
+  text: string;
 };
 
 export type FaqItem = {

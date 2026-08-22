@@ -24,21 +24,17 @@ export function Process() {
                     <span className="inline-flex size-10 shrink-0 items-center justify-center rounded-full bg-linear-to-br from-violet to-magenta text-sm font-bold text-white">
                       {index + 1}
                     </span>
-                    <span className="text-xs font-bold tracking-[0.14em] text-ink-soft uppercase">
+                    {/*
+                      Метка — заголовок шага: отдельного заголовка в плашке
+                      больше нет, а список должен оставаться размеченным.
+                    */}
+                    <h3 className="text-xs font-bold tracking-[0.14em] text-ink-soft uppercase">
                       {step.label}
-                    </span>
+                    </h3>
                   </div>
 
-                  {/*
-                    Резерв высоты под заголовок: в две колонки и в четыре часть
-                    названий переносится на вторую строку, и без резерва
-                    описания соседних карточек начинались бы на разной высоте.
-                  */}
-                  <h3 className="mt-4 text-lg font-bold text-balance sm:min-h-14">
-                    {step.title}
-                  </h3>
-                  <p className="mt-2 text-sm leading-relaxed text-pretty text-ink-muted">
-                    {step.description}
+                  <p className="mt-4 text-sm leading-relaxed text-pretty text-ink-soft">
+                    {step.text}
                   </p>
                 </div>
               </Reveal>
