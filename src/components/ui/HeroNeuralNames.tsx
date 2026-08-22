@@ -1,3 +1,5 @@
+import type { CSSProperties } from "react";
+
 import { cn } from "@/lib/cn";
 
 /**
@@ -7,11 +9,13 @@ import { cn } from "@/lib/cn";
  * ближе к краю читаются чётче, дальние тонут в фоне, а середину заслоняет
  * фигура — из-за этого слой воспринимается объёмным, а не плоской надписью.
  *
- * Серверный компонент: анимации и реакции на курсор здесь нет, поэтому
- * в браузер не уезжает ни строчки JavaScript.
+ * Имена медленно ходят по своим орбитам и по дороге проявляются и гаснут —
+ * анимация целиком на CSS (см. hero-orbit и hero-breathe в globals.css),
+ * поэтому компонент остаётся серверным и в браузер не уезжает ни строчки
+ * JavaScript. На курсор слой по-прежнему не реагирует.
  *
  * `tone` — оттенок из палитры сайта, `depth` — насколько имя «далеко»:
- * от него зависят прозрачность и сила размытия.
+ * от него зависят прозрачность, размытие и размах орбиты.
  */
 type NeuralName = {
   label: string;
@@ -52,21 +56,65 @@ const tones = {
   brand: "text-brand",
 } as const;
 
-/** Дальше имя — прозрачнее и мягче: так слои не спорят за внимание. */
+/** Дальше имя — мягче размытие: так слои не спорят за внимание. */
 const depths = {
-  near: "opacity-35 blur-[1.5px]",
-  mid: "opacity-25 blur-[2.5px]",
-  far: "opacity-20 blur-[4px]",
+  near: "blur-[1.5px]",
+  mid: "blur-[2.5px]",
+  far: "blur-[4px]",
 } as const;
+
+/**
+ * Чем ближе имя, тем шире его орбита и заметнее наплыв — так же, как ведут
+ * себя предметы разной удалённости при движении наблюдателя.
+ */
+const depthMotion = {
+  near: { rx: "1.15em", ry: "0.7em",  opacity: "0.35", scaleMin: "0.82", scaleMax: "1.12" },
+  mid:  { rx: "0.85em", ry: "0.52em", opacity: "0.25", scaleMin: "0.86", scaleMax: "1.08" },
+  far:  { rx: "0.6em",  ry: "0.36em", opacity: "0.2",  scaleMin: "0.9",  scaleMax: "1.05" },
+} as const;
+
+/**
+ * Длительности и сдвиги фазы считаются от порядкового номера, а не берутся
+ * случайными: случайные разъехались бы между сервером и браузером и React
+ * ругался бы на несовпадение разметки.
+ *
+ * Значения подобраны так, чтобы у соседних имён не совпадали ни период
+ * обхода, ни период «дыхания». Сдвиги отрицательные — каждое имя стартует
+ * с середины своего цикла, иначе при загрузке страницы весь слой проявился
+ * бы разом.
+ */
+function motionStyle(name: NeuralName, index: number): CSSProperties {
+  const depth = depthMotion[name.depth];
+
+  // Сторона берётся из той же раскладки, что и позиция, — держать её
+  // отдельным полем значило бы дублировать одно и то же в двух местах.
+  const towardCenter = name.position.includes("right-") ? "-" : "";
+
+  return {
+    "--orbit-rx": depth.rx,
+    // Центр орбиты сдвинут внутрь на радиус: имя гуляет только к середине
+    // квадрата и никогда не заходит дальше своей исходной точки наружу.
+    "--orbit-cx": `${towardCenter}${depth.rx}`,
+    "--orbit-ry": depth.ry,
+    "--orbit-opacity": depth.opacity,
+    "--orbit-scale-min": depth.scaleMin,
+    "--orbit-scale-max": depth.scaleMax,
+    "--orbit-spin": `${34 + index * 3}s`,
+    "--orbit-breath": `${19 + ((index * 5) % 13)}s`,
+    "--orbit-spin-delay": `-${index * 7}s`,
+    "--orbit-breath-delay": `-${index * 11}s`,
+  } as CSSProperties;
+}
 
 export function HeroNeuralNames() {
   return (
     <div aria-hidden="true" className="pointer-events-none absolute inset-0 select-none">
-      {names.map((name) => (
+      {names.map((name, index) => (
         <span
           key={name.label}
+          style={motionStyle(name, index)}
           className={cn(
-            "absolute font-extrabold tracking-tight whitespace-nowrap",
+            "hero-orbiting absolute font-extrabold tracking-tight whitespace-nowrap",
             name.position,
             name.size,
             tones[name.tone],

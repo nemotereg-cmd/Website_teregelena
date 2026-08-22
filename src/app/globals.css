@@ -116,15 +116,83 @@
     linear-gradient(180deg, var(--color-canvas-soft) 0%, var(--color-canvas) 70%);
 }
 
-/* Лёгкое «парение» пилюль с названиями нейросетей на первом экране. */
-@keyframes float {
-  0%,
-  100% {
-    transform: translateY(0);
+/*
+ * Названия нейросетей на первом экране летают по орбите: медленно обходят
+ * эллипс вокруг своей точки и по дороге наплывают и растворяются.
+ *
+ * Ход по орбите и «дыхание» — две отдельные анимации с разной длительностью.
+ * Периоды намеренно не кратны друг другу: сочетания не повторяются, и слой
+ * не читается как заведённая карусель.
+ *
+ * Работают через индивидуальные свойства translate и scale, а не через
+ * transform: иначе они затёрли бы наклон, который приходит утилитой
+ * rotate-* из Tailwind.
+ *
+ * Радиусы заданы в em — привязаны к кеглю имени, поэтому на маленьком экране
+ * амплитуда уменьшается вместе со шрифтом сама.
+ *
+ * --orbit-cx сдвигает центр орбиты по горизонтали. Он равен радиусу со
+ * знаком «внутрь»: левое имя гуляет только вправо от своей точки, правое —
+ * только влево. Иначе левый столбец наезжал бы на заголовок первого экрана,
+ * а правый упирался бы в край секции.
+ */
+@keyframes hero-orbit {
+  0% {
+    translate: var(--orbit-cx) calc(var(--orbit-ry) * -1);
+  }
+  12.5% {
+    translate: calc(var(--orbit-cx) + var(--orbit-rx) * 0.707) calc(var(--orbit-ry) * -0.707);
+  }
+  25% {
+    translate: calc(var(--orbit-cx) + var(--orbit-rx)) 0;
+  }
+  37.5% {
+    translate: calc(var(--orbit-cx) + var(--orbit-rx) * 0.707) calc(var(--orbit-ry) * 0.707);
   }
   50% {
-    transform: translateY(-0.5rem);
+    translate: var(--orbit-cx) var(--orbit-ry);
   }
+  62.5% {
+    translate: calc(var(--orbit-cx) - var(--orbit-rx) * 0.707) calc(var(--orbit-ry) * 0.707);
+  }
+  75% {
+    translate: calc(var(--orbit-cx) - var(--orbit-rx)) 0;
+  }
+  87.5% {
+    translate: calc(var(--orbit-cx) - var(--orbit-rx) * 0.707) calc(var(--orbit-ry) * -0.707);
+  }
+  100% {
+    translate: var(--orbit-cx) calc(var(--orbit-ry) * -1);
+  }
+}
+
+@keyframes hero-breathe {
+  0%,
+  100% {
+    opacity: 0;
+    scale: var(--orbit-scale-min);
+  }
+  22%,
+  78% {
+    opacity: var(--orbit-opacity);
+  }
+  50% {
+    opacity: var(--orbit-opacity);
+    scale: var(--orbit-scale-max);
+  }
+}
+
+/*
+ * Базовая прозрачность здесь не для красоты: в режиме «меньше движения»
+ * анимации обрываются на первом кадре и значения откатываются к базовым.
+ * Без неё имена остались бы невидимыми.
+ */
+@utility hero-orbiting {
+  opacity: var(--orbit-opacity);
+  animation:
+    hero-orbit var(--orbit-spin) linear infinite,
+    hero-breathe var(--orbit-breath) ease-in-out infinite;
+  animation-delay: var(--orbit-spin-delay), var(--orbit-breath-delay);
 }
 
 /* Плавное появление блока при скролле. Управляется хуком useInView. */
