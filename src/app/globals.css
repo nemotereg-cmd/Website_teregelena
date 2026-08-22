@@ -131,38 +131,39 @@
  * Радиусы заданы в em — привязаны к кеглю имени, поэтому на маленьком экране
  * амплитуда уменьшается вместе со шрифтом сама.
  *
- * --orbit-cx сдвигает центр орбиты по горизонтали. Он равен радиусу со
- * знаком «внутрь»: левое имя гуляет только вправо от своей точки, правое —
- * только влево. Иначе левый столбец наезжал бы на заголовок первого экрана,
- * а правый упирался бы в край секции.
+ * Форма орбиты и сторона обхода у каждого имени свои (см. таблицу orbits
+ * в HeroNeuralNames): иначе слой читался бы как один параллельный сдвиг.
+ * Размах по горизонтали намеренно меньше, чем по вертикали — вбок имя
+ * уползает либо за силуэт, либо к заголовку первого экрана, а вверх-вниз
+ * места сколько угодно.
  */
 @keyframes hero-orbit {
   0% {
-    translate: var(--orbit-cx) calc(var(--orbit-ry) * -1);
+    translate: 0 calc(var(--orbit-ry) * -1);
   }
   12.5% {
-    translate: calc(var(--orbit-cx) + var(--orbit-rx) * 0.707) calc(var(--orbit-ry) * -0.707);
+    translate: calc(var(--orbit-rx) * 0.707) calc(var(--orbit-ry) * -0.707);
   }
   25% {
-    translate: calc(var(--orbit-cx) + var(--orbit-rx)) 0;
+    translate: var(--orbit-rx) 0;
   }
   37.5% {
-    translate: calc(var(--orbit-cx) + var(--orbit-rx) * 0.707) calc(var(--orbit-ry) * 0.707);
+    translate: calc(var(--orbit-rx) * 0.707) calc(var(--orbit-ry) * 0.707);
   }
   50% {
-    translate: var(--orbit-cx) var(--orbit-ry);
+    translate: 0 var(--orbit-ry);
   }
   62.5% {
-    translate: calc(var(--orbit-cx) - var(--orbit-rx) * 0.707) calc(var(--orbit-ry) * 0.707);
+    translate: calc(var(--orbit-rx) * -0.707) calc(var(--orbit-ry) * 0.707);
   }
   75% {
-    translate: calc(var(--orbit-cx) - var(--orbit-rx)) 0;
+    translate: calc(var(--orbit-rx) * -1) 0;
   }
   87.5% {
-    translate: calc(var(--orbit-cx) - var(--orbit-rx) * 0.707) calc(var(--orbit-ry) * -0.707);
+    translate: calc(var(--orbit-rx) * -0.707) calc(var(--orbit-ry) * -0.707);
   }
   100% {
-    translate: var(--orbit-cx) calc(var(--orbit-ry) * -1);
+    translate: 0 calc(var(--orbit-ry) * -1);
   }
 }
 
@@ -193,6 +194,8 @@
     hero-orbit var(--orbit-spin) linear infinite,
     hero-breathe var(--orbit-breath) ease-in-out infinite;
   animation-delay: var(--orbit-spin-delay), var(--orbit-breath-delay);
+  /* Половина имён обходит орбиту в обратную сторону — см. таблицу orbits. */
+  animation-direction: var(--orbit-spin-direction), normal;
 }
 
 /* Плавное появление блока при скролле. Управляется хуком useInView. */
