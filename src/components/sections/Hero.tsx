@@ -5,7 +5,7 @@ import { Button } from "@/components/ui/Button";
 import { Container } from "@/components/ui/Container";
 import { GradientText } from "@/components/ui/GradientText";
 import { ArrowRightIcon } from "@/components/ui/icons/ui-icons";
-import { HeroBadges, HeroBadgesRow } from "@/components/ui/HeroBadges";
+import { HeroNeuralNames } from "@/components/ui/HeroNeuralNames";
 
 export function Hero() {
   return (
@@ -42,13 +42,16 @@ export function Hero() {
             </div>
           </div>
 
-          {/* Визуал первого экрана. На мобильных пилюли уходят под фото в ряд. */}
+          {/* Визуал первого экрана: портрет поверх слоя с названиями нейросетей. */}
           <div className="relative">
             <div className="relative mx-auto aspect-square w-full max-w-lg">
               <div
                 aria-hidden="true"
                 className="absolute -inset-4 rounded-full bg-linear-to-br from-violet/30 to-magenta/30 blur-3xl"
               />
+              {/* Названия нейросетей — слоем позади фигуры. */}
+              <HeroNeuralNames />
+
               {/*
                 PNG с прозрачным фоном: силуэт лежит прямо на свечении, без
                 подложки — как в макете. Тень отделяет фигуру от лавандового
@@ -64,10 +67,7 @@ export function Hero() {
                 className="relative object-contain drop-shadow-[0_18px_35px_rgb(80_50_150/0.28)] mask-b-from-92% mask-b-to-100%"
               />
 
-              <HeroBadges />
             </div>
-
-            <HeroBadgesRow />
           </div>
         </div>
       </Container>
