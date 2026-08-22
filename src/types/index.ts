@@ -21,15 +21,6 @@ export type ContactChannel = {
 };
 
 /** Ключ иконки для карточки выгоды. См. `src/components/ui/icons/benefit-icons.tsx`. */
-export type BenefitIconId = "text" | "content" | "analytics";
-
-export type Benefit = {
-  id: string;
-  title: string;
-  description: string;
-  icon: BenefitIconId;
-};
-
 /** Цветовая тема карточки курса — задаёт градиент фона и цвет номера. */
 export type CourseTheme = "rose" | "violet" | "amber" | "azure";
 
@@ -62,12 +53,6 @@ export type ProcessStep = {
   label: string;
   /** Весь шаг одним текстом — отдельного заголовка в плашке нет. */
   text: string;
-};
-
-export type FaqItem = {
-  id: string;
-  question: string;
-  answer: string;
 };
 
 export type AboutStat = {

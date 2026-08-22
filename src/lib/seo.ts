@@ -1,6 +1,5 @@
 import type { Metadata } from "next";
 
-import { faq } from "@/content/faq";
 import { courses } from "@/content/courses";
 import { author, contacts, site } from "@/content/site";
 import { siteUrl } from "@/lib/site-url";
@@ -111,18 +110,6 @@ export function buildHomeJsonLd() {
         // (формат, длительность) и offers (цена). Намеренно не заполняю —
         // выдумывать эти цифры нельзя, добавьте их вместе с реальными данными.
       })),
-      {
-        "@type": "FAQPage",
-        "@id": `${siteUrl}/#faq`,
-        mainEntity: faq.map((item) => ({
-          "@type": "Question",
-          name: item.question,
-          acceptedAnswer: {
-            "@type": "Answer",
-            text: item.answer,
-          },
-        })),
-      },
     ],
   };
 }

@@ -43,10 +43,3 @@ export const videoTestimonials: VideoTestimonial[] = [
     duration: "0:25",
   },
 ];
-
-/** Тёмная плашка-призыв. В макете была четвёртой карточкой в сетке отзывов. */
-export const testimonialsCta = {
-  title: "Нейросети — это не будущее. Это ваш шаг вперёд уже сейчас.",
-  description: "Начните обучение и измените свой подход к работе и жизни.",
-  action: "Записаться на курс",
-} as const;

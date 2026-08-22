@@ -8,7 +8,7 @@ import { SectionHeading } from "@/components/ui/SectionHeading";
 
 export function Contact() {
   return (
-    <Section id="contacts">
+    <Section id="contacts" background="soft">
       <Container>
         <SectionHeading
           title="Связаться со мной"
