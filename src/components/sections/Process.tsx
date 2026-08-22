@@ -24,7 +24,7 @@ export function Process() {
                     <span className="inline-flex size-10 shrink-0 items-center justify-center rounded-full bg-linear-to-br from-violet to-magenta text-sm font-bold text-white">
                       {index + 1}
                     </span>
-                    <span className="text-xs font-bold tracking-[0.14em] text-ink-soft uppercase">
+                    <span className="text-sm font-semibold text-ink-soft">
                       {step.label}
                     </span>
                   </div>
