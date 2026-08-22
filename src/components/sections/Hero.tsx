@@ -3,20 +3,9 @@ import Image from "next/image";
 import { author } from "@/content/site";
 import { Button } from "@/components/ui/Button";
 import { Container } from "@/components/ui/Container";
-import { FloatingBadge } from "@/components/ui/FloatingBadge";
 import { GradientText } from "@/components/ui/GradientText";
 import { ArrowRightIcon } from "@/components/ui/icons/ui-icons";
-import {
-  ChatGptMark,
-  ClaudeMark,
-  MidjourneyMark,
-} from "@/components/ui/icons/ai-icons";
-
-const badges = [
-  { label: "ChatGPT", icon: <ChatGptMark className="size-5" /> },
-  { label: "Claude", icon: <ClaudeMark className="size-5" /> },
-  { label: "Midjourney", icon: <MidjourneyMark className="size-5" /> },
-];
+import { HeroBadges, HeroBadgesRow } from "@/components/ui/HeroBadges";
 
 export function Hero() {
   return (
@@ -75,31 +64,10 @@ export function Hero() {
                 className="relative object-contain drop-shadow-[0_18px_35px_rgb(80_50_150/0.28)] mask-b-from-92% mask-b-to-100%"
               />
 
-              {/* Пилюли позиционируются абсолютно только начиная с sm. */}
-              <div className="pointer-events-none absolute inset-0 hidden sm:block">
-                <FloatingBadge
-                  {...badges[0]}
-                  className="absolute top-[14%] left-0"
-                  floatDelay={0}
-                />
-                <FloatingBadge
-                  {...badges[1]}
-                  className="absolute top-[40%] -left-2"
-                  floatDelay={800}
-                />
-                <FloatingBadge
-                  {...badges[2]}
-                  className="absolute top-[66%] left-2"
-                  floatDelay={1600}
-                />
-              </div>
+              <HeroBadges />
             </div>
 
-            <div className="mt-6 flex flex-wrap justify-center gap-2.5 sm:hidden">
-              {badges.map((badge) => (
-                <FloatingBadge key={badge.label} {...badge} className="px-3 py-2" />
-              ))}
-            </div>
+            <HeroBadgesRow />
           </div>
         </div>
       </Container>

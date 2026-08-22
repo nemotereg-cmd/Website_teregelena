@@ -19,6 +19,11 @@ export function FloatingBadge({ label, icon, className, floatDelay = 0 }: Floati
         "inline-flex items-center gap-2.5 rounded-2xl bg-surface/95 px-4 py-2.5",
         "shadow-float ring-1 ring-white/60 backdrop-blur-sm",
         "motion-safe:animate-[float_6s_ease-in-out_infinite]",
+        // Наведение: плашка чуть увеличивается и подсвечивается. Анимация
+        // «парения» живёт на этом же элементе, поэтому масштаб задаём через
+        // scale-*, а не через transform — иначе они перебивали бы друг друга.
+        "transition-[scale,box-shadow,--tw-ring-color] duration-300 ease-soft",
+        "hover:scale-110 hover:shadow-card-hover hover:ring-violet/40",
         className,
       )}
       style={floatDelay ? { animationDelay: `${floatDelay}ms` } : undefined}
