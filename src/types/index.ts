@@ -37,7 +37,10 @@ export type Course = {
   /** Используется как якорь и как будущий сегмент URL `/courses/[slug]`. */
   slug: string;
   title: string;
-  description: string;
+  /** Одна фраза для карточки: полное описание занимает несколько абзацев. */
+  lead: string;
+  /** Полное описание — раскрывается в окне по клику на карточку. */
+  details: string[];
   /** Путь к изображению внутри `public/`. */
   image: string;
   theme: CourseTheme;
@@ -55,6 +58,8 @@ export type Testimonial = {
 
 export type ProcessStep = {
   id: string;
+  /** Короткое слово-этап: ЗНАКОМСТВО, ПРАКТИКА и так далее. */
+  label: string;
   title: string;
   description: string;
 };

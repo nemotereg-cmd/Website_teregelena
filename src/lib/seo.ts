@@ -102,7 +102,9 @@ export function buildHomeJsonLd() {
         "@type": "Course",
         "@id": `${siteUrl}/#course-${course.slug}`,
         name: course.title,
-        description: course.description,
+        // В разметку отдаём полное описание: на карточке видна только первая
+        // фраза, а поисковику полезен весь текст курса.
+        description: [course.lead, ...course.details].join(" "),
         inLanguage: site.lang,
         provider: { "@id": personId },
         // Для расширенного сниппета Google дополнительно ждёт hasCourseInstance

@@ -8,13 +8,11 @@ import { cn } from "@/lib/cn";
 
 type CourseCardProps = {
   course: Course;
-  /** Куда ведёт карточка. Сейчас это якорь контактов. */
-  href: string;
-  /** Приоритетная загрузка для карточек, попадающих в первый экран. */
-  priority?: boolean;
+  /** Открыть описание. Элемент передаётся, чтобы вернуть на него фокус. */
+  onOpen: (trigger: HTMLButtonElement) => void;
 };
 
-export function CourseCard({ course, href, priority }: CourseCardProps) {
+export function CourseCard({ course, onOpen }: CourseCardProps) {
   const theme = courseThemes[course.theme];
 
   return (
@@ -35,7 +33,6 @@ export function CourseCard({ course, href, priority }: CourseCardProps) {
           src={course.image}
           alt=""
           fill
-          priority={priority}
           sizes="(min-width: 1024px) 25vw, (min-width: 640px) 45vw, 90vw"
           className="object-cover transition-transform duration-500 ease-soft group-hover:scale-105"
         />
@@ -48,22 +45,33 @@ export function CourseCard({ course, href, priority }: CourseCardProps) {
       */}
       <div className="flex min-w-0 flex-1 flex-col">
         {/*
-          Резерв высоты под самый длинный заголовок — иначе описания соседних
-          карточек разъезжаются по вертикали. Значения замерены в браузере:
-            до sm  — резерва нет: карточки идут одна под другой, выравнивать
-                     нечего, а пустая строка была бы заметна;
-            sm     — две строки (56px);
-            lg     — три (84px): в сетке из четырёх колонок карточка самая
-                     узкая, и «Создание контента с нейросетями» переносится
-                     на три строки;
-            xl     — снова две: колонка шире, заголовок укладывается в две.
+          Резерв высоты под самый длинный заголовок («AI-трансформация для
+          крупных компаний») — иначе описания соседних карточек разъезжаются
+          по вертикали. Диапазоны не пересекаются намеренно: так порядок
+          правил в готовом CSS не влияет на результат. Значения замерены в
+          браузере на каждом шаге в 16px:
+            до 640px — резерва нет: карточки идут одна под другой,
+                       выравнивать нечего, а пустая строка была бы заметна;
+            640–1023 — две колонки, две строки (56px);
+            1024–1039 — включилась сетка из четырёх колонок, но окно ещё
+                        узкое: заголовок занимает четыре строки (112px);
+            1040–1199 — три строки (84px);
+            от 1200px — колонка шире, хватает двух строк.
         */}
-        <h3 className="text-xl font-bold text-balance text-ink sm:min-h-14 lg:min-h-21 xl:min-h-14">
+        <h3
+          className={cn(
+            "text-xl font-bold text-balance text-ink",
+            "min-[640px]:max-[1023px]:min-h-14",
+            "min-[1024px]:max-[1039px]:min-h-28",
+            "min-[1040px]:max-[1199px]:min-h-21",
+            "min-[1200px]:min-h-14",
+          )}
+        >
           {course.title}
         </h3>
 
         <p className="mt-2 text-sm leading-relaxed text-pretty text-ink-soft/85">
-          {course.description}
+          {course.lead}
         </p>
 
         <div className="mt-auto flex items-end justify-between gap-4 pt-4">
@@ -95,11 +103,15 @@ export function CourseCard({ course, href, priority }: CourseCardProps) {
         </div>
       </div>
 
-      {/* Растянутая ссылка: карточка кликабельна целиком, но в DOM это одна ссылка. */}
-      <a
-        href={href}
+      {/*
+        Растянутая кнопка: карточка нажимается целиком, но в дереве
+        доступности это один элемент управления.
+      */}
+      <button
+        type="button"
+        onClick={(event) => onOpen(event.currentTarget)}
         className="absolute inset-0 rounded-panel"
-        aria-label={`Курс «${course.title}» — узнать подробнее`}
+        aria-label={`Курс «${course.title}» — открыть описание`}
       />
     </article>
   );
